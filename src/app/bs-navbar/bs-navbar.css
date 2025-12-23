@@ -1,0 +1,9 @@
+/* Styles for bs-navbar component */
+:host {
+  display: block;
+}
+
+/* adjust body padding to account for fixed navbar */
+body {
+  padding-top: 56px;
+}
