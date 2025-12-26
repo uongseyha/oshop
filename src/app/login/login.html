@@ -1,2 +1,31 @@
 <h2>Login</h2>
-<p>Login form will go here.</p>
+
+<div *ngIf="!localLoggedIn">
+	<div class="card p-3" style="max-width:420px">
+		<form (ngSubmit)="login()" #loginForm="ngForm" novalidate>
+			<div class="mb-3">
+				<label class="form-label">Username</label>
+				<input name="username" class="form-control" [(ngModel)]="username" required placeholder="admin" />
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label">Password</label>
+				<input name="password" type="password" class="form-control" [(ngModel)]="password" required placeholder="admin" />
+			</div>
+
+			<div class="d-flex gap-2">
+				<button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+			</div>
+		</form>
+
+		<div *ngIf="loginMessage" class="mt-3 alert" [ngClass]="{'alert-success': localLoggedIn, 'alert-danger': !localLoggedIn}">
+			{{ loginMessage }}
+		</div>
+	</div>
+</div>
+
+<div *ngIf="localLoggedIn">
+	<div class="alert alert-success">Logged in as {{ username }}</div>
+	<button class="btn btn-secondary" (click)="logout()">Log Out</button>
+</div>
+

@@ -9,4 +9,5 @@ export const environment = {
     messagingSenderId: '323461123259',
     appId: '1:323461123259:web:d95f6dd7b5f2dafed9ad9e',
   },
+  enableFirebase: true,
 };

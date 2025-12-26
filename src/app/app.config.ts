@@ -15,8 +15,13 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
-    provideAuth(() => getAuth()),
+    // Only register Firebase providers when enabled in environment
+    ...(environment.enableFirebase
+      ? [
+          provideFirebaseApp(() => initializeApp(environment.firebase)),
+          provideFirestore(() => getFirestore()),
+          provideAuth(() => getAuth()),
+        ]
+      : []),
   ],
 };
