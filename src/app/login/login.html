@@ -5,12 +5,12 @@
 		<form (ngSubmit)="login()" #loginForm="ngForm" novalidate>
 			<div class="mb-3">
 				<label class="form-label">Username</label>
-				<input name="username" class="form-control" [(ngModel)]="username" required placeholder="admin" />
+				<input name="username" class="form-control" [(ngModel)]="username" required placeholder="admin" value="admin"/>
 			</div>
 
 			<div class="mb-3">
 				<label class="form-label">Password</label>
-				<input name="password" type="password" class="form-control" [(ngModel)]="password" required placeholder="admin" />
+				<input name="password" type="password" class="form-control" [(ngModel)]="password" required placeholder="admin" value="admin"/>
 			</div>
 
 			<div class="d-flex gap-2">

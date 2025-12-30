@@ -1,2 +1,35 @@
-<h2>Admin - Products</h2>
-<p>Admin product management UI placeholder.</p>
+<p>
+  <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
+</p>
+<div class="mb-3">
+  <input
+    #searchInput
+    type="text"
+    class="form-control"
+    placeholder="Search products..."
+    (keyup)="searchProducts(searchInput.value)"
+  />
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Price</th>
+      <!-- <th scope="col">Category</th> -->
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of filteredProducts; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ p.title }}</td>
+      <td>{{ p.price | currency : 'USD' : 'symbol' : '1.2-2' }}</td>
+      <!-- <td>{{ p.category?.name }}</td> -->
+      <td>
+        <a [routerLink]="['/admin/products/', p.id]" class="btn btn-sm btn-primary">Edit</a>
+        <button class="btn btn-sm btn-danger" (click)="deleteProduct(p.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -10,4 +10,5 @@ export const environment = {
     appId: '1:323461123259:web:d95f6dd7b5f2dafed9ad9e',
   },
   enableFirebase: true,
+  apiUrl: 'https://localhost:7044/api',
 };

@@ -1,5 +1,12 @@
 export interface User {
-  name: string;
-  password?: string;
+  id: number;
+  username: string;
+  password: string;
+  isAdmin: boolean;
+}
+
+export interface UserCreate {
+  username: string;
+  password: string;
   isAdmin: boolean;
 }
