@@ -60,11 +60,6 @@ export class AdminProducts implements OnInit, AfterViewInit, OnDestroy {
     this.subscription = this.productService.getProducts().subscribe((products) => {
       // Assign the array to MatTableDataSource
       this.dataSource.data = products;
-
-      // Option A: Trigger sort by emitting sortChange (cleanest)
-      if (this.sort.active && this.sort.direction) {
-        this.sort.sortChange.emit(); // ← this re-applies current sort
-      }
     });
   }
 
