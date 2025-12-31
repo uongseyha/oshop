@@ -1,7 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../model/user.model';
-import { UserService } from './user.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -15,5 +14,4 @@ export class AuthService {
   logout() {
     this.userSubject.next(null);
   }
-
 }

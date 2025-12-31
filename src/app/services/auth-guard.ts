@@ -8,14 +8,14 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   return authService.user$.pipe(
-    map(user => {
+    map((user) => {
       if (user) {
         return true;
       }
 
       // state.url comes from RouterStateSnapshot
       return router.createUrlTree(['/login'], {
-        queryParams: { returnUrl: state.url }
+        queryParams: { returnUrl: state.url },
       });
     })
   );

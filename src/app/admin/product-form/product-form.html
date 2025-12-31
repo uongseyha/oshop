@@ -69,7 +69,6 @@
           class="form-control"
           name="imageUrl"
           [(ngModel)]="product.imageUrl"
-          required
           pattern="https?://.+"
           #imageUrl="ngModel"
           [class.is-invalid]="imageUrl.invalid && imageUrl.touched"
@@ -80,20 +79,37 @@
         <small *ngIf="imageUrl.errors?.['pattern']"> Enter a valid URL (http/https) </small>
       </div>
 
-      <!-- Submit -->
-      <button type="submit" class="btn btn-primary w-100" [disabled]="productForm.invalid">
-        Submit
-      </button>
+      <!-- Buttons -->
+      <div class="d-flex gap-2 mt-4">
+        <button type="submit" class="btn btn-primary flex-grow-1" [disabled]="productForm.invalid">
+          Save
+        </button>
+
+        <!-- Delete button - only shown when editing an existing product -->
+        <button
+          *ngIf="product.id"
+          type="button"
+          class="btn btn-danger"
+          (click)="deleteProduct(product.id!)"
+        >
+          Delete
+        </button>
+      </div>
     </form>
   </div>
-  <div class="col-md-6">
+  <div *ngIf="title.value" class="col-md-6">
     <div class="card" style="width: 18rem">
-      <img [src]="imageUrl.value" class="card-img-top" alt="..." />
+      <img
+        [src]="
+          imageUrl.value ||
+          'https://st2.depositphotos.com/2586633/46477/v/450/depositphotos_464771766-stock-illustration-no-photo-or-blank-image.jpg'
+        "
+        class="card-img-top"
+        alt="..."
+      />
       <div class="card-body">
         <h5 class="card-title">{{ title.value }}</h5>
-        <p class="card-text">${{ price.value | currency:'USD': 'symbol':'1.2-2' }}
-        </p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <p class="card-text">${{ price.value | currency : 'USD' : 'symbol' : '1.2-2' }}</p>
       </div>
     </div>
   </div>
