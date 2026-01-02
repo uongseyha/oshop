@@ -4,6 +4,7 @@ export interface Product {
   price: number;
   imageUrl: string;
   categoryId: number;
+  isProtected?: boolean;
 }
 
 export interface ProductCreate {
@@ -11,4 +12,5 @@ export interface ProductCreate {
   price: number;
   imageUrl: string;
   categoryId: number;
+  isProtected?: boolean;
 }

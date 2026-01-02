@@ -87,7 +87,7 @@
 
         <!-- Delete button - only shown when editing an existing product -->
         <button
-          *ngIf="product.id"
+          *ngIf="product.id && !product.isProtected"
           type="button"
           class="btn btn-danger"
           (click)="deleteProduct(product.id!)"

@@ -51,7 +51,7 @@
           <a [routerLink]="['/admin/products', element.id]" class="btn btn-sm btn-primary me-2">
             Edit
           </a>
-          <button mat-raised-button color="warn" class="btn-sm" (click)="deleteProduct(element.id)">
+          <button *ngIf="!element.isProtected" mat-raised-button color="warn" class="btn-sm" (click)="deleteProduct(element.id)">
             Delete
           </button>
         </td>
