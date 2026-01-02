@@ -6,12 +6,17 @@ import { Product, ProductCreate } from '../model/product.model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
-  private http = inject(HttpClient);
   private baseUrl = `${environment.apiUrl}/Products`;
 
+  constructor(
+    private http: HttpClient
+  ) {
+    this.getProducts();
+  }
+
   // Get list
-  getProducts(): Observable<any[]> {
-    return this.http.get<any[]>(this.baseUrl);
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.baseUrl);
   }
 
   getProductById(id: number): Observable<Product> {
@@ -19,7 +24,6 @@ export class ProductService {
   }
 
   createProduct(data: ProductCreate) {
-    console.log('Creating product:', data);
     return this.http.post<Product>(this.baseUrl, data).subscribe();
   }
 

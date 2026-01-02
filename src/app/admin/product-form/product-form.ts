@@ -8,12 +8,13 @@ import { Category } from '../../model/category.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../model/product.model';
 import { take } from 'rxjs/operators';
+import { ProductCard } from "../../products/product-card/product-card";
 
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.html',
   styleUrl: './product-form.css',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ProductCard],
 })
 export class ProductForm implements OnInit, OnDestroy {
   categories: Category[] = [];

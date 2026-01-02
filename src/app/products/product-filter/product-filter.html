@@ -1,0 +1,25 @@
+<div class="card shadow-sm border-0 sticky-top" style="top: 1rem">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0">Categories</h5>
+  </div>
+  <div class="list-group list-group-flush">
+    <button
+      type="button"
+      class="list-group-item list-group-item-action"
+      [class.active]="selectedCategory === null"
+      (click)="filterByCategory(null)"
+    >
+      All Products
+    </button>
+
+    <button
+      type="button"
+      class="list-group-item list-group-item-action"
+      *ngFor="let category of categories"
+      [class.active]="selectedCategory === category"
+      (click)="filterByCategory(category)"
+    >
+      {{ category.name || category.description }}
+    </button>
+  </div>
+</div>

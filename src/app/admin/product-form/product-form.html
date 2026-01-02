@@ -81,7 +81,12 @@
 
       <!-- Buttons -->
       <div class="d-flex gap-2 mt-4">
-        <button *ngIf="!product.isProtected" type="submit" class="btn btn-primary flex-grow-1" [disabled]="productForm.invalid">
+        <button
+          *ngIf="!product.isProtected"
+          type="submit"
+          class="btn btn-primary flex-grow-1"
+          [disabled]="productForm.invalid"
+        >
           Save
         </button>
 
@@ -97,20 +102,12 @@
       </div>
     </form>
   </div>
-  <div *ngIf="title.value" class="col-md-6">
-    <div class="card" style="width: 18rem">
-      <img
-        [src]="
-          imageUrl.value ||
-          'https://st2.depositphotos.com/2586633/46477/v/450/depositphotos_464771766-stock-illustration-no-photo-or-blank-image.jpg'
-        "
-        class="card-img-top"
-        alt="..."
-      />
-      <div class="card-body">
-        <h5 class="card-title">{{ title.value }}</h5>
-        <p class="card-text">${{ price.value | currency : 'USD' : 'symbol' : '1.2-2' }}</p>
-      </div>
+  
+  <!-- Preview Column -->
+  @if (title.valid) {
+    <div class="col-md-3">
+      <app-product-card [product]="product" [showActions]="false"></app-product-card>
     </div>
-  </div>
+  }
+  
 </div>

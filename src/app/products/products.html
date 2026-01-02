@@ -2,31 +2,9 @@
   <div class="row">
     <!-- LEFT COLUMN: Categories Sidebar -->
     <div class="col-lg-3 col-xl-2 mb-4 mb-lg-0">
-      <div class="card shadow-sm border-0 sticky-top" style="top: 1rem">
-        <div class="card-header bg-primary text-white">
-          <h5 class="mb-0">Categories</h5>
-        </div>
-        <div class="list-group list-group-flush">
-          <button
-            type="button"
-            class="list-group-item list-group-item-action"
-            [class.active]="selectedCategory === null"
-            (click)="filterByCategory(null)"
-          >
-            All Products
-          </button>
-
-          <button
-            type="button"
-            class="list-group-item list-group-item-action"
-            *ngFor="let category of categories"
-            [class.active]="selectedCategory === category.id"
-            (click)="filterByCategory(category.id)"
-          >
-            {{ category.name || category.description }}
-          </button>
-        </div>
-      </div>
+      <app-product-filter
+        (categorySelected)="filterByCategory($event)"
+      ></app-product-filter>
     </div>
 
     <!-- RIGHT COLUMN: Products Grid -->
@@ -34,7 +12,7 @@
       <!-- Optional header with count -->
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="mb-0">
-          {{ selectedCategory ? 'Category: ' + getCategoryName(selectedCategory) : 'All Products' }}
+          {{ getCategoryName() }}
           <small class="text-muted">({{ filteredProducts.length }} items)</small>
         </h3>
       </div>
@@ -42,28 +20,7 @@
       <!-- Product Cards Grid -->
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 g-4">
         <div class="col" *ngFor="let p of filteredProducts">
-          <div class="card h-100 shadow-sm border-0 hover-shadow">
-            <img
-              [src]="
-                p.imageUrl ||
-                'https://st2.depositphotos.com/2586633/46477/v/450/depositphotos_464771766-stock-illustration-no-photo-or-blank-image.jpg'
-              "
-              class="card-img-top"
-              alt="{{ p.title }}"
-              style="height: 200px; object-fit: cover"
-            />
-
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">{{ p.title }}</h5>
-              <p class="card-text text-success fw-bold fs-5 mb-3">
-                {{ p.price | currency : 'USD' : 'symbol' : '1.2-2' }}
-              </p>
-
-              <div class="mt-auto">
-                <button class="btn btn-primary w-100">Add to Cart</button>
-              </div>
-            </div>
-          </div>
+            <app-product-card [product]="p"></app-product-card>
         </div>
 
         <!-- No products found -->
