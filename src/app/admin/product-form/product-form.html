@@ -81,7 +81,7 @@
 
       <!-- Buttons -->
       <div class="d-flex gap-2 mt-4">
-        <button type="submit" class="btn btn-primary flex-grow-1" [disabled]="productForm.invalid">
+        <button *ngIf="!product.isProtected" type="submit" class="btn btn-primary flex-grow-1" [disabled]="productForm.invalid">
           Save
         </button>
 
