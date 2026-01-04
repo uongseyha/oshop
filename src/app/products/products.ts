@@ -3,14 +3,14 @@ import { Component } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { CurrencyPipe, CommonModule } from '@angular/common';
 import { Product } from '../model/product.model';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 import { ProductFilter } from './product-filter/product-filter';
 import { ProductCard } from "./product-card/product-card";
 
 @Component({
   selector: 'app-products',
-  imports: [CurrencyPipe, RouterLink, CommonModule, ProductFilter, ProductCard],
+  imports: [CommonModule, ProductFilter, ProductCard],
   templateUrl: './products.html',
   styleUrl: './products.css',
 })

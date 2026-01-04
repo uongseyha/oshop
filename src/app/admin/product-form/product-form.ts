@@ -50,13 +50,27 @@ export class ProductForm implements OnInit, OnDestroy {
   }
 
   saveProduct(product: NgForm) {
-    if (this.productId) {
-      this.productService.updateProduct(Number(this.productId), product.value).subscribe();
-    } else {
-      this.productService.createProduct(product.value);
+    if (!product.valid) {
+      product.control.markAllAsTouched();
+      return;
     }
 
-    this.router.navigate(['/admin/products']);
+    const productData = product.value;
+
+    const saveOperation$ = this.productId
+      ? this.productService.updateProduct(Number(this.productId), productData)
+      : this.productService.createProduct(productData);
+
+    saveOperation$.subscribe({
+      next: () => {
+        this.router.navigate(['/admin/products']);
+      },
+      error: (error) => {
+        console.error('Save failed:', error);
+        // TODO: show toast/error message to user
+        alert('Something went wrong! Please try again.');
+      }
+    });
   }
 
   loadProductById(id: any) {

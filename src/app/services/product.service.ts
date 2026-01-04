@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Product, ProductCreate } from '../model/product.model';
+import { Product } from '../model/product.model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -15,23 +15,23 @@ export class ProductService {
   }
 
   // Get list
-  getProducts(): Observable<Product[]> {
+  getProducts(){
     return this.http.get<Product[]>(this.baseUrl);
   }
 
-  getProductById(id: number): Observable<Product> {
+  getProductById(id: number){
     return this.http.get<Product>(`${this.baseUrl}/${id}`);
   }
 
-  createProduct(data: ProductCreate) {
-    return this.http.post<Product>(this.baseUrl, data).subscribe();
+  createProduct(data: Product){
+    return this.http.post<Product>(this.baseUrl, data);
   }
 
-  updateProduct(id: number, data: ProductCreate): Observable<Product> {
+  updateProduct(id: number, data: Product){
     return this.http.put<Product>(`${this.baseUrl}/${id}`, data);
   }
 
-  deleteProduct(id: number): Observable<void> {
+  deleteProduct(id: number){
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }

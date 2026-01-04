@@ -12,10 +12,9 @@ import { User } from '../model/user.model';
   imports: [RouterLink, CommonModule]
 })
 export class BsNavbar {
-  user: User | null = null;
+  user: User | null | undefined = null;
 
   constructor(public authService: AuthService) {
-
     this.authService.user$.subscribe((u) => (this.user = u));
   }
 

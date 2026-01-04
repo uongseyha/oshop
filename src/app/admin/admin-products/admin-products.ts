@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Subscription } from 'rxjs';
 
@@ -37,10 +37,19 @@ export class AdminProducts implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort) sort!: MatSort;
   private subscription = new Subscription();
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService
+    , private router: Router
+  ) {}
 
   ngOnInit() {
     this.loadProducts();
+
+    // this.router.events.subscribe(event => {
+    //   if (event instanceof NavigationEnd) {
+    //     this.loadProducts();
+    //   }
+    // });
   }
 
   ngAfterViewInit() {
@@ -57,7 +66,7 @@ export class AdminProducts implements OnInit, AfterViewInit, OnDestroy {
   }
 
   loadProducts() {
-    this.subscription = this.productService.getProducts().subscribe((products) => {
+    this.productService.getProducts().subscribe((products) => {
       // Assign the array to MatTableDataSource
       this.dataSource.data = products;
     });
