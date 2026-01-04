@@ -33,7 +33,9 @@ export class Login implements OnInit {
     // Fetch users for demonstration purposes
     this.userService.getUsers().subscribe(users => {
       this.users = users;
-      this.router.navigateByUrl(this.returnUrl);
+      if (this.authService.isAuthenticated()){
+        this.router.navigateByUrl(this.returnUrl);
+      }
     });
   }
 
