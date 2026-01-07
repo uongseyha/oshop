@@ -4,10 +4,11 @@ import { CommonModule, CurrencyPipe, NgIf } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-product-card',
-  imports: [CurrencyPipe, FormsModule, CommonModule],
+  imports: [CurrencyPipe, FormsModule, CommonModule, RouterModule],
   templateUrl: './product-card.html',
   styleUrl: './product-card.css',
 })
