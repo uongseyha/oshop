@@ -1,0 +1,86 @@
+<div class="container my-4" *ngIf="cart">
+
+  <h3 class="mb-4 fw-bold">🛒 Your Cart</h3>
+
+  <div class="card shadow-sm border-0">
+    <div class="card-body">
+
+      <!-- Empty State -->
+      <div *ngIf="cart.items.length === 0" class="text-center py-5 text-muted">
+        Your cart is empty
+      </div>
+
+      <!-- Cart Items -->
+      <div
+        *ngFor="let item of cart.items"
+        class="row align-items-center py-3 border-bottom"
+      >
+        <!-- Thumbnail -->
+        <div class="col-md-2 col-4">
+          <a [routerLink]="['/product-detail', item.productId]">
+            <img
+              [src]="item.imageUrl || 'https://st2.depositphotos.com/2586633/46477/v/450/depositphotos_464771766-stock-illustration-no-photo-or-blank-image.jpg'"
+              class="img-fluid rounded border"
+              style="max-height: 80px; object-fit: cover"
+            />
+          </a>
+        </div>
+
+        <!-- Product Info -->
+        <div class="col-md-3 col-8">
+          <a
+            [routerLink]="['/product-detail', item.productId]"
+            class="text-decoration-none fw-semibold text-dark d-block"
+          >
+            {{ item.productTitle }}
+          </a>
+          <small class="text-muted">
+            {{ item.price | currency }}
+          </small>
+        </div>
+
+        <!-- Quantity -->
+        <div class="col-md-3 mt-2 mt-md-0">
+          <div class="input-group input-group-sm w-75">
+            <button class="btn btn-outline-secondary" (click)="decreaseQty(item)">−</button>
+
+            <input
+              type="number"
+              class="form-control text-center"
+              [value]="item.quantity"
+              min="1"
+              (change)="updateQty(item, $event)"
+            />
+
+            <button class="btn btn-outline-secondary" (click)="increaseQty(item)">+</button>
+          </div>
+        </div>
+
+        <!-- Subtotal -->
+        <div class="col-md-3 text-md-end fw-semibold mt-2 mt-md-0">
+          {{ item.price * item.quantity | currency }}
+        </div>
+
+        <!-- Remove -->
+        <div class="col-md-1 text-end">
+          <button
+            class="btn btn-sm btn-outline-danger"
+            (click)="removeItem(item.id)"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Total -->
+      <div
+        class="d-flex justify-content-between align-items-center mt-4"
+        *ngIf="cart.items.length > 0"
+      >
+        <h5 class="fw-bold mb-0">Total</h5>
+        <h5 class="fw-bold mb-0">{{ total() | currency }}</h5>
+      </div>
+
+    </div>
+  </div>
+</div>

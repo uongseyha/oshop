@@ -11,6 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from './../../confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-products-list',
@@ -38,8 +40,9 @@ export class AdminProducts implements OnInit, AfterViewInit, OnDestroy {
   private subscription = new Subscription();
 
   constructor(
-    private productService: ProductService
-    , private router: Router
+    private productService: ProductService,
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -83,13 +86,22 @@ export class AdminProducts implements OnInit, AfterViewInit, OnDestroy {
   }
 
   deleteProduct(id: string | number) {
-    if (confirm('Are you sure you want to delete this product?')) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: {
+        message: 'Are you sure you want to delete this product?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (!confirmed) return;
+
       this.productService.deleteProduct(Number(id)).subscribe(() => {
         // Remove from data and let MatTableDataSource handle update
         const updated = this.dataSource.data.filter((p) => p.id !== id);
         this.dataSource.data = updated; // This triggers table refresh
       });
-    }
+    });
   }
 
   ngOnDestroy() {

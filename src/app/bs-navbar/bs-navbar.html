@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/">OShop</a>
+    <a class="navbar-brand" routerLink="/">Demo Shop</a>
     <button
       class="navbar-toggler p-0 border-0"
       type="button"
@@ -12,7 +12,17 @@
     <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" routerLink="/products">Products</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/shopping-cart">Shopping Cart</a></li>
+        <li class="nav-item position-relative">
+          <a class="nav-link" routerLink="/shopping-cart">
+            🛒 Shopping Cart
+            <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              *ngIf="totalQuantity > 0"
+            >
+              {{ totalQuantity }}
+            </span>
+          </a>
+        </li>
 
         <li *ngIf="user && user.isAdmin" class="nav-item dropdown">
           <!-- <li class="nav-item dropdown"> -->
@@ -26,8 +36,8 @@
             <!-- Admin-->
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" routerLink="/my-orders">My Order</a></li>
-            <li><a class="dropdown-item" routerLink="/admin/orders">Manage Orders</a></li>
+            <!-- <li><a class="dropdown-item" routerLink="/my-orders">My Order</a></li> -->
+            <!-- <li><a class="dropdown-item" routerLink="/admin/orders">Manage Orders</a></li> -->
             <li><a class="dropdown-item" routerLink="/admin/products">Admin Products</a></li>
             <li *ngIf="user"><a class="dropdown-item" href="#" (click)="logout()">Log Out</a></li>
           </ul>

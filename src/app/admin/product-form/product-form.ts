@@ -1,3 +1,4 @@
+import { ConfirmDialogComponent } from './../../confirm-dialog/confirm-dialog';
 import { ProductService } from './../../services/product.service';
 import { Observable } from 'rxjs';
 import { CategoryService } from './../../services/category.service';
@@ -8,7 +9,10 @@ import { Category } from '../../model/category.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../model/product.model';
 import { take } from 'rxjs/operators';
-import { ProductCard } from "../../products/product-card/product-card";
+import { ProductCard } from '../../products/product-card/product-card';
+import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-product-form',
@@ -26,7 +30,9 @@ export class ProductForm implements OnInit, OnDestroy {
     private productService: ProductService,
     private router: Router,
     private activateRoute: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastr: ToastrService,
+    private dialog: MatDialog
   ) {
     this.loadCategories();
     this.productId = this.activateRoute.snapshot.paramMap.get('id');
@@ -66,10 +72,8 @@ export class ProductForm implements OnInit, OnDestroy {
         this.router.navigate(['/admin/products']);
       },
       error: (error) => {
-        console.error('Save failed:', error);
-        // TODO: show toast/error message to user
-        alert('Something went wrong! Please try again.');
-      }
+        this.toastr.error('Something went wrong! Please try again.');
+      },
     });
   }
 
@@ -90,16 +94,21 @@ export class ProductForm implements OnInit, OnDestroy {
       });
   }
 
-  deleteProduct(productId: any) {
-    if (!confirm('Are you sure you want to delete this product?')) return;
+  deleteProduct(productId: number) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: {
+        message: 'Are you sure you want to delete this product?',
+      },
+    });
 
-    this.productService.deleteProduct(Number(productId)).subscribe({
-      next: () => {
-        this.router.navigate(['/admin/products']);
-      },
-      error: (err) => {
-        console.error(err);
-      },
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (!confirmed) return;
+
+      this.productService.deleteProduct(productId).subscribe({
+        next: () => this.router.navigate(['/admin/products']),
+        error: (err) => console.error(err),
+      });
     });
   }
 

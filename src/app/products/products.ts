@@ -21,7 +21,7 @@ export class Products {
 
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     this.loadProducts();
   }
@@ -59,4 +59,5 @@ export class Products {
       ? this.selectedCategory.name || this.selectedCategory.description
       : 'All Products';
   }
+
 }
