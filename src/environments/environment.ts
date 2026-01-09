@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   //apiUrl: 'https://localhost:7044/api', //Local
-  apiUrl: "https://myapi.azurewebsites.net/api", //PROD
+  apiUrl: "https://demo-app-oshop-a0hkbja0atc9brbk.canadacentral-01.azurewebsites.net/api", //PROD
 
 
   // firebase: {
