@@ -1,14 +1,17 @@
 export const environment = {
-  production: false,
-  firebase: {
-    apiKey: 'AIzaSyA-pZ5j4O6jUMHuemdP16-j9COrdlVO1Tw',
-    authDomain: 'oshop-seyha.firebaseapp.com',
-    databaseURL: 'https://oshop-seyha.firebaseio.com',
-    projectId: 'oshop-seyha',
-    storageBucket: 'oshop-seyha.firebasestorage.app',
-    messagingSenderId: '323461123259',
-    appId: '1:323461123259:web:d95f6dd7b5f2dafed9ad9e',
-  },
-  enableFirebase: true,
-  apiUrl: 'https://localhost:7044/api',
+  production: true,
+  //apiUrl: 'https://localhost:7044/api', //Local
+  apiUrl: "https://myapi.azurewebsites.net/api", //PROD
+
+
+  // firebase: {
+  //   apiKey: 'AIzaSyA-pZ5j4O6jUMHuemdP16-j9COrdlVO1Tw',
+  //   authDomain: 'oshop-seyha.firebaseapp.com',
+  //   databaseURL: 'https://oshop-seyha.firebaseio.com',
+  //   projectId: 'oshop-seyha',
+  //   storageBucket: 'oshop-seyha.firebasestorage.app',
+  //   messagingSenderId: '323461123259',
+  //   appId: '1:323461123259:web:d95f6dd7b5f2dafed9ad9e',
+  // },
+  // enableFirebase: false,
 };

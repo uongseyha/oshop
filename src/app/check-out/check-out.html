@@ -1,2 +1,115 @@
-<h2>Check Out</h2>
-<p>Checkout form and summary will go here.</p>
+<div class="container my-5" *ngIf="cart">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold mb-0">🧾 Checkout</h3>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- LEFT COLUMN: Checkout Form -->
+    <div class="col-md-7">
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+
+          <h5 class="fw-semibold mb-3">Billing Details</h5>
+
+          <form #checkoutForm="ngForm" (ngSubmit)="placeOrder()">
+
+            <!-- Name -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Full Name</label>
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                [(ngModel)]="order.name"
+                required
+              />
+            </div>
+
+            <!-- Address -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Address</label>
+              <textarea
+                class="form-control"
+                rows="3"
+                name="address"
+                [(ngModel)]="order.address"
+                required
+              ></textarea>
+            </div>
+
+            <!-- City -->
+            <div class="mb-4">
+              <label class="form-label fw-semibold">City</label>
+              <input
+                type="text"
+                class="form-control"
+                name="city"
+                [(ngModel)]="order.city"
+                required
+              />
+            </div>
+
+            <!-- Place Order Button -->
+            <button
+              type="submit"
+              class="btn btn-success w-100 py-2"
+              [disabled]="checkoutForm.invalid || cart.items.length === 0"
+            >
+              Place Order
+            </button>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: Sticky Cart Summary -->
+    <div class="col-md-5">
+      <div
+        class="card shadow-sm border-0 position-sticky"
+        style="top: 20px;"
+      >
+        <div class="card-body">
+
+          <h5 class="fw-semibold mb-3">🛒 Order Summary</h5>
+
+          <!-- Empty Cart -->
+          <div *ngIf="cart.items.length === 0" class="text-muted">
+            Your cart is empty
+          </div>
+
+          <!-- Cart Items -->
+          <div
+            *ngFor="let item of cart.items"
+            class="d-flex justify-content-between align-items-start mb-3"
+          >
+            <div>
+              <div class="fw-semibold">{{ item.productTitle }}</div>
+              <small class="text-muted">
+                {{ item.quantity }} × {{ item.price | currency }}
+              </small>
+            </div>
+
+            <div class="fw-semibold">
+              {{ item.quantity * item.price | currency }}
+            </div>
+          </div>
+
+          <hr />
+
+          <!-- Total -->
+          <div class="d-flex justify-content-between fw-bold fs-5">
+            <span>Total</span>
+            <span>{{ total() | currency }}</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

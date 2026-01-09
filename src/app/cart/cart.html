@@ -1,25 +1,28 @@
 <div class="container my-4" *ngIf="cart">
-
-  <h3 class="mb-4 fw-bold">🛒 Your Cart</h3>
-
   <div class="card shadow-sm border-0">
     <div class="card-body">
+      <div
+        class="d-flex justify-content-between align-items-center mb-4"
+        *ngIf="cart.items.length > 0"
+      >
+        <h3 class="fw-bold mb-0">🛒 Your Cart</h3>
 
-      <!-- Empty State -->
-      <div *ngIf="cart.items.length === 0" class="text-center py-5 text-muted">
-        Your cart is empty
+        <button class="btn btn-primary" (click)="checkout()">Checkout</button>
       </div>
 
+      <!-- Fallback title when cart is empty -->
+      <h3 class="mb-4 fw-bold" *ngIf="cart.items.length === 0">🛒 Your Cart</h3>
+
       <!-- Cart Items -->
-      <div
-        *ngFor="let item of cart.items"
-        class="row align-items-center py-3 border-bottom"
-      >
+      <div *ngFor="let item of cart.items" class="row align-items-center py-3 border-bottom">
         <!-- Thumbnail -->
         <div class="col-md-2 col-4">
           <a [routerLink]="['/product-detail', item.productId]">
             <img
-              [src]="item.imageUrl || 'https://st2.depositphotos.com/2586633/46477/v/450/depositphotos_464771766-stock-illustration-no-photo-or-blank-image.jpg'"
+              [src]="
+                item.imageUrl ||
+                'https://st2.depositphotos.com/2586633/46477/v/450/depositphotos_464771766-stock-illustration-no-photo-or-blank-image.jpg'
+              "
               class="img-fluid rounded border"
               style="max-height: 80px; object-fit: cover"
             />
@@ -63,12 +66,7 @@
 
         <!-- Remove -->
         <div class="col-md-1 text-end">
-          <button
-            class="btn btn-sm btn-outline-danger"
-            (click)="removeItem(item.id)"
-          >
-            ✕
-          </button>
+          <button class="btn btn-sm btn-outline-danger" (click)="removeItem(item.id)">✕</button>
         </div>
       </div>
 
@@ -80,7 +78,6 @@
         <h5 class="fw-bold mb-0">Total</h5>
         <h5 class="fw-bold mb-0">{{ total() | currency }}</h5>
       </div>
-
     </div>
   </div>
 </div>

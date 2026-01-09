@@ -2,8 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../services/cart.service';
 import { Cart, CartItem } from '../model/cart.model';
-import { Router } from 'express';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +14,9 @@ export class CartComponent implements OnInit{
   cart!: Cart;
   cartId!: number;
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private router: Router) {}
 
   ngOnInit() {
     this.cartService.getOrCreateCart().subscribe(id => {
@@ -63,5 +64,9 @@ export class CartComponent implements OnInit{
       (sum, i) => sum + i.price * i.quantity,
       0
     );
+  }
+
+  checkout(){
+    this.router.navigate(['/check-out']);
   }
 }

@@ -14,6 +14,9 @@ export class CartService {
   private cartQuantitySubject = new BehaviorSubject<number>(0);
   cartQuantity$ = this.cartQuantitySubject.asObservable();
 
+  private checkoutCartSubject = new BehaviorSubject<Cart | null>(null);
+  checkoutCart$ = this.checkoutCartSubject.asObservable();
+
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -35,6 +38,9 @@ export class CartService {
       tap((cart) => {
         const qty = cart.items.reduce((sum, item) => sum + item.quantity, 0);
         this.cartQuantitySubject.next(qty);
+
+        // 🔥 store cart for checkout
+        this.checkoutCartSubject.next(cart);
       })
     );
   }
@@ -42,9 +48,7 @@ export class CartService {
   addItem(cartId: number, productId: number, quantity: number) {
     return this.http
       .post(`${this.baseUrl}/${cartId}/items`, { productId, quantity })
-      .pipe(
-        switchMap(() => this.getCart(cartId))
-      );
+      .pipe(switchMap(() => this.getCart(cartId)));
   }
 
   removeItem(cartId: number, itemId: number) {
@@ -82,8 +86,31 @@ export class CartService {
     return this.http.post(`${this.baseUrl}/${cartId}/items`, { productId, quantity });
   }
 
-  // private updateCartQuantity(cart: Cart) {
-  //   const totalQty = cart.items.reduce((sum, i) => sum + i.quantity, 0);
-  //   this.cartQuantitySubject.next(totalQty);
-  // }
+  setCheckoutCart(cart: Cart) {
+    this.checkoutCartSubject.next(cart);
+
+    if (this.isBrowser) {
+      localStorage.setItem('checkout_cart', JSON.stringify(cart));
+    }
+  }
+
+  getCheckoutCart(): Cart | null {
+    if (this.checkoutCartSubject.value) {
+      return this.checkoutCartSubject.value;
+    }
+
+    if (this.isBrowser) {
+      const stored = localStorage.getItem('checkout_cart');
+      return stored ? JSON.parse(stored) : null;
+    }
+
+    return null;
+  }
+
+  clearCheckoutCart() {
+    this.checkoutCartSubject.next(null);
+    if (this.isBrowser) {
+      localStorage.removeItem('checkout_cart');
+    }
+  }
 }

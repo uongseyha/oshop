@@ -1,0 +1,10 @@
+{
+  "routes": {
+    "/": {},
+    "/admin/products": {},
+    "/check-out": {},
+    "/login": {},
+    "/products": {},
+    "/shopping-cart": {}
+  }
+}
