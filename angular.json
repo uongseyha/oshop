@@ -19,6 +19,7 @@
             "polyfills": ["zone.js"],
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
+            "outputPath": "dist/oshop",
             "assets": [
               {
                 "glob": "**/*",
