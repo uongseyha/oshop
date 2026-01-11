@@ -16,6 +16,6 @@ export default `<!doctype html>
   <app-root></app-root>
   <!-- Bootstrap JS bundle (CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="modulepreload" href="chunk-EZT74UGR.js"><link rel="modulepreload" href="chunk-M5LVI6DX.js"><link rel="modulepreload" href="chunk-WK4HHDYE.js"><link rel="modulepreload" href="chunk-CCGEPKRN.js"><link rel="modulepreload" href="chunk-RKM6F45U.js"><script src="polyfills-5CFQRCPP.js" type="module"></script><script src="main-FFO3PQNO.js" type="module"></script></body>
+<link rel="modulepreload" href="chunk-KIZXACRJ.js"><link rel="modulepreload" href="chunk-MNXOTJHE.js"><link rel="modulepreload" href="chunk-NWDZFFLP.js"><link rel="modulepreload" href="chunk-U6GVV6FS.js"><link rel="modulepreload" href="chunk-RKM6F45U.js"><script src="polyfills-5CFQRCPP.js" type="module"></script><script src="main-FAP5VYSP.js" type="module"></script></body>
 </html>
 `;
