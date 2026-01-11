@@ -32,6 +32,10 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "dist/oshop" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.19'
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
