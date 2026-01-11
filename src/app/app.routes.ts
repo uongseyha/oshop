@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { authGuard } from './services/auth-guard';
 
 export const routes: Routes = [
-  { path: '', pathMatch:'full', loadComponent: () => import('./home/home').then((m) => m.Home) },
+  { path: '', loadComponent: () => import('./home/home').then((m) => m.Home), pathMatch:'full' },
   { path: 'products', loadComponent: () => import('./products/products').then((m) => m.Products) },
   {
     path: 'product-detail/:id',
