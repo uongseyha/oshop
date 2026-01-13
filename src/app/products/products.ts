@@ -18,6 +18,7 @@ export class Products {
   products: Product[] = [];
   filteredProducts: any[] = []; // Displayed products
   selectedCategory: Category | null = null;
+  loading: boolean = false;
 
   constructor(
     private productService: ProductService,
@@ -27,6 +28,7 @@ export class Products {
   }
 
   loadProducts() {
+    this.loading = true;
     this.productService
       .getProducts()
       .pipe(
@@ -41,6 +43,7 @@ export class Products {
           ? { id: +categoryId, name: '', description: '' }
           : null;
         this.filterByCategory(category || null);
+        this.loading = false;
       });
   }
 
